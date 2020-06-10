@@ -1,0 +1,37 @@
+lang -> (expr)+
+expr -> assign_expr | while_expr | if_expr | structure_declaration_expr | structure_operation_expr
+
+assign_expr -> VAR ASSIGN_OP value_expr SC
+value_expr -> [ (value) | (L_B value_expr R_B) ]  (OP value_expr)*
+value -> VAR | DIGIT  | VAR STRUCTURE_GETTER_KW value
+
+structure_declaration_expr -> structure_type var SC
+structure_operation_expr -> var STRUCTURE_OP value value? SC
+structure_type -> LIST_KW | HASH_SET_KW
+
+while_expr -> WHILE_KW head body
+if_expr -> IF_KW head body else_expr?
+else_expr -> ELSE_KW body
+
+head -> L_B logic_expr R_B
+body -> L_CB (expr)+ R_CB
+logic_expr -> value LOGIC_OP value | VAR STRUCTURE_LOGIC_OP_KW value
+
+VAR -> [a-z]+
+ASSIGN_OP -> =
+DIGIT -> 0 | ([1-9][0-9]*)
+OP -> + | - | * | / | ^
+SC -> ;
+WHILE_KW -> while
+IF_KW -> if
+ELSE_KW -> else
+L_CB -> {
+R_CB -> }
+L_B -> (
+R_B -> )
+LOGIC_OP -> < | > | == | <= | >= | !=
+STRUCTURE_OP -> add | remove | set
+STRUCTURE_LOGIC_OP_KW -> contains
+STRUCTURE_GETTER_KW -> get
+LIST_KW -> LinkedList
+HASH_SET_KW -> HashSet
