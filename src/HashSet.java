@@ -4,27 +4,29 @@ import java.util.List;
 public class HashSet {
 
     private String name;
-    List<Integer> list0 = new ArrayList<>();
-    List<Integer> list1 = new ArrayList<>();
-    List<Integer> list2 = new ArrayList<>();
-    List<Integer> list3 = new ArrayList<>();
+    LnkdList[] lists = new LnkdList[4];
+
 
 
     HashSet (String name){
         this.name = name;
+        for(int i=0; i<4; i++ ){
+            lists[i] = new LnkdList("hashSetList" + String.valueOf(i));
+        }
     }
 
     public String getName(){
         return name;
     }
 
-    public List<Integer> getAllElements(){
-        List<Integer> list = new ArrayList<>();
-        list.addAll(list0);
-        list.addAll(list1);
-        list.addAll(list2);
-        list.addAll(list3);
-        return list;
+    public void getAllElements(){
+
+        for (LnkdList list : lists){
+            while(list.size>0){
+                System.out.println( list.first.value);
+                list.deleteElement(0);
+            }
+        }
     }
 
     private int getHashes(int x){
@@ -33,20 +35,8 @@ public class HashSet {
         return Math.abs(hashKey);
     }
 
-    private List<Integer> getList(int grpNb) {
-        if (grpNb == 0){
-            return list0;
-        }
-        else if (grpNb == 1){
-            return list1;
-        }
-        else if (grpNb == 2){
-            return list2;
-        }
-        else if (grpNb == 3){
-            return list3;
-        }
-        throw new RuntimeException("unexpected grp number " + grpNb);
+    private LnkdList getList(int grpNb) {
+        return lists[grpNb];
     }
 
     public boolean contains(int x){
@@ -57,7 +47,7 @@ public class HashSet {
     public void addValue(int x){
         int grpNb = getHashes(x);
         if(!getList(grpNb).contains(x)) {
-            getList(grpNb).add(x);
+            getList(grpNb).addElement(x);
         }
     }
 

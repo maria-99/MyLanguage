@@ -403,9 +403,7 @@ public class StackMachine {
         System.out.println("... HashSets ... ");
         for (HashSet hashSet : createdHashSets){
             System.out.println("hashSet " +hashSet.getName());
-            for (int element : hashSet.getAllElements()) {
-                System.out.println(element);
-            }
+            hashSet.getAllElements();
         }
     }
 }

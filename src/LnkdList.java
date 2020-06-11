@@ -1,10 +1,10 @@
+
 public class LnkdList {
 
     int size = 0;
     private final String name;
     Element first;
     Element last;
-
 
     LnkdList (String name){
         this.name=name;
@@ -65,6 +65,18 @@ public class LnkdList {
         Element x = getElement(index);
         x.value = newValue;
     }
+
+    boolean contains (int x){
+        boolean contain = false;
+        Element e = first;
+        while (e!= null){
+            if(e.value==x){
+                contain=true;
+            }
+            e=e.next;
+        }
+        return contain;
+    };
 
 
 
